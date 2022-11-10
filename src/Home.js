@@ -26,8 +26,6 @@ function Home() {
   return(
     <div className="home">
       <h1>Hello {className.data}!</h1>
-      <h5>Sequence Here</h5>
-      <textarea rows={3} cols={30}></textarea>
       <form>
           <h5>Fasta File Upload</h5>
           <input type="file" />
