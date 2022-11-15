@@ -34,6 +34,7 @@ function Home() {
     reader.onload = function (e) {
       // read fasta
       var sequences = readFunction(e.target.result)
+      runScraper()
       console.log(e.target.result)
     };
     reader.readAsText(file);
@@ -53,14 +54,17 @@ function Home() {
         seqs.push(text[i].trim())
       }
     }
-    console.log(headers)
-    console.log(seqs)
+    console.log("Headers Below")
+    console.table(headers)
+    console.log("Sequences Below")
+    console.table(seqs)
     return seqs
   }
 
   function runScraper() {
-    var motif = document.getElementById("motif").target.result
+    var motif = document.getElementById("motif").value
     //run motif scraper using motif variable using the python-shell
+    console.log("This is the motif found in the -motif- text box element: ", motif)
     return
   }
 
