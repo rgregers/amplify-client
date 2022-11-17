@@ -115,8 +115,8 @@ function Home() {
         </form>
       <h5>Motif Here</h5>
       <textarea rows={3} cols={30} id="motif"></textarea>
-
     </div>
+    
   );
 }
 
