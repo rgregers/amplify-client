@@ -1,7 +1,17 @@
-import { Link } from "react-router-dom"
-
+import { Link, useLocation} from "react-router-dom"
 
 function About(){
+    function showR2DT() {
+        document.getElementById('r2dtcomponent').style.display='block';
+        console.log("showing r2dt")
+        return false;
+    }
+    function hideR2DT() {
+        document.getElementById('r2dtcomponent').style.display='none';
+        console.log("hiding r2dt")
+        return false;
+    }
+    const { pathname } = useLocation();
     return(
         <div>
             <div className="titleBar">
@@ -9,7 +19,7 @@ function About(){
                     <p> Amplify </p>{" "}
                 </div>
                 <div className="barButtons">
-                    <Link className="bar_button" to="/">
+                    <Link className="bar_button" to="/" onClick={showR2DT}>
                         Home
                     </Link>
                     <Link className="bar_button" to="/about">
@@ -34,7 +44,6 @@ function About(){
                         <li>Lauren Allen - Computer Science</li>
                     </ul>
                 </div>
-                
             </div>
         </div>
     )

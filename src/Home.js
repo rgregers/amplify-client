@@ -5,6 +5,16 @@ import "./home.css"
 
 
 function Home() {
+  function showR2DT() {
+    document.getElementById('r2dtcomponent').style.display='block';
+    console.log("showing r2dt")
+    return false;
+  }
+  function hideR2DT() {
+    document.getElementById('r2dtcomponent').style.display='none';
+    console.log("hiding r2dt")
+    return false;
+  }
   const [className, setClassName] = useState("");
 
   const [seqs, setSeqs] = useState("");
@@ -39,6 +49,7 @@ function Home() {
       var sequences = readFunction(e.target.result)
       runScraper()
       console.log(e.target.result)
+      document.getElementById("resultarea").value = "motif used: " + document.getElementById("motif").value + "\nmotif found: False/True" + "\nAt indices: x, y, z"
     };
     reader.readAsText(file);
     return
@@ -118,7 +129,7 @@ function Home() {
           <Link className="bar_button" to="/">
             Home
           </Link>
-          <Link className="bar_button" to="/about">
+          <Link className="bar_button" to="/about" onClick={hideR2DT}>
             About
           </Link>
         </div>
@@ -133,9 +144,11 @@ function Home() {
               <button type="submit" name="upload">Run Scraper</button>
           </form>
           <h5>Motif Here</h5>
-          <textarea rows={3} cols={30} id="motif"></textarea>
+          <textarea rows={3} cols={30} id="motif"/>
         </div>
         <div className= "section2">
+          <h5>Result</h5>
+          <textarea rows={5} cols={60} disabled id="resultarea"></textarea>
 
         </div>
       </div>
