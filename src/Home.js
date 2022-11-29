@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom"
 import axios from "axios";
+import "./home.css"
+
 
 function Home() {
   const [className, setClassName] = useState("");
@@ -107,14 +110,36 @@ function Home() {
 
   return(
     <div className="home">
-      <h1>Hello {className.data}!</h1>
-      <form onSubmit={handleSubmit}>
-          <h5>Fasta File Upload</h5>
-          <input id="myFile" type="file"/>
-          <button type="submit" name="upload">Run Scraper</button>
-        </form>
-      <h5>Motif Here</h5>
-      <textarea rows={3} cols={30} id="motif"></textarea>
+      <div className="titleBar">
+        <div className="title">
+          <p> Amplify </p>{" "}
+        </div>
+        <div className="barButtons">
+          <Link className="bar_button" to="/">
+            Home
+          </Link>
+          <Link className="bar_button" to="/about">
+            About
+          </Link>
+        </div>
+      </div>
+
+      <div className="body">
+        <div className= "section1">
+          {/* <h1>Hello {className.data}!</h1> */}
+          <form onSubmit={handleSubmit}>
+              <h5>Fasta File Upload</h5>
+              <input id="myFile" type="file"/>
+              <button type="submit" name="upload">Run Scraper</button>
+          </form>
+          <h5>Motif Here</h5>
+          <textarea rows={3} cols={30} id="motif"></textarea>
+        </div>
+        <div className= "section2">
+
+        </div>
+      </div>
+
     </div>
     
   );
