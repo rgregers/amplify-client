@@ -17,9 +17,9 @@ function Home() {
   }
   const [className, setClassName] = useState("");
 
-  const [seqs, setSeqs] = useState("");
+  const [seqs, setSeqs] = useState([]);
 
-  const [headers, setHeaders] = useState("");
+  const [heads, setHeaders] = useState([]);
 
   useEffect(() => {
     getClassName().then(result => {
@@ -39,21 +39,58 @@ function Home() {
       return false;
     }
   }
-  
+  function handleAll(event) {
+    handleSubmit(event)
+    checkStates()
+  }
   function handleSubmit(event) {
     event.preventDefault()
     var file = document.getElementById("myFile").files[0];
     var reader = new FileReader();
     reader.onload = function (e) {
       // read fasta
-      var sequences = readFunction(e.target.result)
+      var [headers, sequences] = readFunction(e.target.result)
       runScraper()
       console.log(e.target.result)
       document.getElementById("resultarea").value = "motif used: " + document.getElementById("motif").value + "\nmotif found: False/True" + "\nAt indices: x, y, z"
+      setHeaders(headers)
+      setSeqs(sequences)
+      handleTextUpdate(headers, sequences)
+      
+      // buttonOne.disabled=false
+      // buttonTwo.disabled=false
     };
     reader.readAsText(file);
     return
     // read fasta file
+  }
+
+  function handleTextUpdate(headers, sequences) {
+    var r2dtcomponent = document.getElementById("r2dtcomponent")
+    var r2dtTextArea = r2dtcomponent.shadowRoot.getElementById("sequence")
+    // for (var i=0; i<seqs.length; i++) {
+    //   r2dtTextArea.textContent += heads[i] + '\n' + seqs[i] + '\n'
+    // }
+    var valueToBe = ""
+    for (var i=0; i<sequences.length; i++) {
+      valueToBe += headers[i] + '\n' + sequences[i] + '\n'
+    }
+    valueToBe = valueToBe.trim()
+    var r2dtForm = r2dtcomponent.shadowRoot.children[0].children[2].children[0].children[0].children[1]
+    var buttonOneAlt = r2dtForm.getElementsByClassName("btn btn-primary mb-2")[0]
+    var buttonTwoAlt = r2dtForm.getElementsByClassName("btn btn-secondary mb-2")[0]
+    buttonOneAlt.disabled = false
+    buttonTwoAlt.disabled = false
+    var nativeTextAreaValueSetter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, "value").set;
+    nativeTextAreaValueSetter.call(r2dtTextArea, valueToBe);
+
+    const event = new Event('input', { bubbles: true});
+    r2dtTextArea.dispatchEvent(event);
+  }
+
+  function checkStates() {
+    console.log(heads)
+    console.log(seqs)
   }
 
   function readFunction(input) {
@@ -68,11 +105,11 @@ function Home() {
         seqs.push(text[i].trim())
       }
     }
-    console.log("Headers Below")
-    console.table(headers)
-    console.log("Sequences Below")
-    console.table(seqs)
-    return seqs
+    // console.log("Headers Below")
+    // console.table(headers)
+    // console.log("Sequences Below")
+    // console.table(seqs)
+    return [headers, seqs]
   }
 
   function runScraper() {
@@ -138,7 +175,7 @@ function Home() {
       <div className="body">
         <div className= "section1">
           {/* <h1>Hello {className.data}!</h1> */}
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleAll}>
               <h5>Fasta File Upload</h5>
               <input id="myFile" type="file"/>
               <button type="submit" name="upload">Run Scraper</button>
