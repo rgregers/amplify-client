@@ -107,7 +107,7 @@ function Home() {
         }
       }
       else {
-        hold += text[i].trim()
+        hold += text[i]
       }
     }
     if(hold.length > 0) {
