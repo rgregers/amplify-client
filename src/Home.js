@@ -97,13 +97,21 @@ function Home() {
     var text = input.split("\n")
     var seqs = []
     var headers = []
+    var hold = ""
     for (let i = 0; i < text.length; i++) {
-      if (text[i][0] == '>') {
+      if (text[i][0] === '>') {
         headers.push(text[i].trim())
+        if (hold.length > 0) {
+          seqs.push(hold.trim())
+          hold = ""
+        }
       }
       else {
-        seqs.push(text[i].trim())
+        hold += text[i].trim()
       }
+    }
+    if(hold.length > 0) {
+      seqs.push(hold.trim())
     }
     // console.log("Headers Below")
     // console.table(headers)
