@@ -1,23 +1,5 @@
-import { Link } from "react-router-dom"
-
-
 function About(){
     return(
-        <div>
-            <div className="titleBar">
-                <div className="title">
-                    <p> Amplify </p>{" "}
-                </div>
-                <div className="barButtons">
-                    <Link className="bar_button" to="/">
-                        Home
-                    </Link>
-                    <Link className="bar_button" to="/about">
-                        About
-                    </Link>
-                </div>
-            </div>
-
             <div className="body">
                 <div className="section2">
                     <h2>This is important because...</h2>
@@ -36,7 +18,6 @@ function About(){
                 </div>
                 
             </div>
-        </div>
     )
 }
 
